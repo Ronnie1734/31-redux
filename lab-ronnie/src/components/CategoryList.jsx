@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-//import CategoryItem from './categoryItem'
+import CategoryItem from './CategoryItem'
 
 class CategoryList extends React.Component {
   constructor (props) {
@@ -12,19 +12,19 @@ class CategoryList extends React.Component {
 displayAll() {
   return this.props.categories.map(category => {
     return <CategoryItem
-    key={category.id}
-    id={category.id}
-    name={category.name}
-    budget={category.isEditing}>
-    isEditing={category.isEditing}>
-    </CategoryItem>
+      key={category.id}
+      id={category.id}
+      name={category.name}
+      budget={category.budget}
+      isEditing={category.isEditing}
+    />
   });
 }
 
 render() {
   return (
     <div>
-      <h2> list </h2>
+      <h3>Categories</h3>
       <ul>{this.displayAll()}</ul>
     </div>
     );
@@ -35,10 +35,4 @@ const mapStateToProps = state => ({
   categories: state.categories,
 });
 
-const mapDispatchToProps = (dispatch, getState) => {
-  return {
-    create: val => dispatch(create(val)),
-  };
-};
-
-export default connect (mapStateToProps, mapDispatchToProps) (CategoryList);
+export default connect (mapStateToProps) (CategoryList);

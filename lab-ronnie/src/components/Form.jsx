@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createCategory, updateCategory, destroyCategory} from '../actions/index.jsx';
+import {createCategory, updateCategory, destroyCategory} from '../actions/index.js';
 import uuidv4 from 'uuid/v4';
 
 export default class MyForm extends React.Component {
@@ -14,25 +14,31 @@ export default class MyForm extends React.Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    
   }
 
   handleSubmit(ev) {
     ev.preventDefault()
-    console.log('submitted', this.state.category);
+    let id = uuidv4();
+    let timestamp = Date.now()
+    this.setState({ id, timestamp })
+    console.log(this.state);
+    this.props.create(this.state);
   }
 
   handleChange(ev) {
     console.log(ev.target.value);
     this.setState({
-      category: ev.target.value
+      [ev.target.name]: ev.target.value
     }) 
   }
   
   render() {
     return ( <form onSubmit={this.handleSubmit}>,
-      <input handleChange={this.handleChange} placeholder="name"></input>
-      <input handleChange={this.handleChange} placeholder="budget" type="number"></input>
+      <input onChange={this.handleChange} value={this.state.name} name="name" placeholder="name"></input>
+      <input onChange={this.handleChange} value={this.state.budget} name="budget" placeholder="budget" type="number"></input>
       <button type="submit">add</button>
+      <button type="submit">change</button>
   </form>
     )
 

@@ -8,13 +8,14 @@ const initialState = {
   categories: []
 }
 
-const rootReducer = (state = initialState, ation) => {
+const rootReducer = (state = initialState, action) => {
   let newstate = {};
-  let category = [];
+  let Category = [];
 
   switch(action.type) {
     
     case CATEGORY_CREATE:
+      console.log(action)
       return {...state, categories: state.categories.concat(action.payload)};
 
     case CATEGORY_DESTROY:
